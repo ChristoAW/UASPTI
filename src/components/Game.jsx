@@ -8,8 +8,6 @@ export default function Game() {
   const [happiness, setHappiness] = useState(50);
   const [jam, setJam] = useState(new Date().toLocaleTimeString());
 
-  halogannn;
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (hunger > 0) setHunger(hunger - 1);
