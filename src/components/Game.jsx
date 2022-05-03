@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ProgressBar from "./ProgressBar";
+import { basicInfo } from "../App";
 
 export default function Game() {
   const [hunger, setHunger] = useState(50);
   const [fun, setFun] = useState(50);
   const [energy, setEnergy] = useState(50);
   const [happiness, setHappiness] = useState(50);
-  const [jam, setJam] = useState(new Date().toLocaleTimeString());
+
+  const { name, prodi, gender } = useContext(basicInfo);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,20 +20,24 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [hunger, happiness, energy, fun]);
   return (
-    <div className="container-lg">
-      <h1></h1>
-      <ProgressBar
-        hunger={hunger}
-        fun={fun}
-        energy={energy}
-        happiness={happiness}
-      />
-      <p>Hunger {hunger}</p>
-      <p>Fun {fun}</p>
-      <p>Energy {energy}</p>
-      <p>Happiness {happiness}</p>
+    <div className="timeOfTheDay">
+      <div className="weather">
+        <div className="location">
+          <h1>{name}</h1>
+          <p>{prodi}</p>
+          <p>{gender}</p>
+          <ProgressBar
+            hunger={hunger}
+            fun={fun}
+            energy={energy}
+            happiness={happiness}
+          />
+          <p>Hunger {hunger}</p>
+          <p>Fun {fun}</p>
+          <p>Energy {energy}</p>
+          <p>Happiness {happiness}</p>
+        </div>
+      </div>
     </div>
   );
 }
-
-//test conflict

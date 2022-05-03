@@ -1,18 +1,33 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import Login from "./components/Login";
 import Game from "./components/Game";
 
+export const basicInfo = createContext(null);
+
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [nama, setNama] = useState("");
+  const [gender, setGender] = useState(0);
+  const [name, setName] = useState("");
   const [prodi, setProdi] = useState(0);
   return (
     <div className="container">
       <div className="header text-center">
-        <h1>7 DAY STUDENT</h1>
+        <h1 className="pt-3">7 DAY STUDENT</h1>
         <hr />
       </div>
-      {isLoggedIn ? <Game /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+      <basicInfo.Provider
+        value={{
+          setIsLoggedIn,
+          name,
+          setName,
+          prodi,
+          setProdi,
+          gender,
+          setGender,
+        }}
+      >
+        {isLoggedIn ? <Game /> : <Login />}
+      </basicInfo.Provider>
     </div>
   );
 }
