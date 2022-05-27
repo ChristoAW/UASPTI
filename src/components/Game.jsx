@@ -1,5 +1,5 @@
 import { useState, useLayoutEffect, useEffect, useContext } from "react";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "./Progressbar";
 import { basicInfo } from "../App";
 
 export default function Game() {
