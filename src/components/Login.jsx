@@ -46,11 +46,13 @@ export default function Login() {
             placeholder="Nama"
             ref={name}
           />
-          <select className="form-select my-2" ref={prodi}>
-            <option defaultValue>Program Studi</option>
-            <option value="1">Teknik Informatika</option>
-            <option value="2">Teknik Kimia</option>
-            <option value="3">Teknik Mesin</option>
+          <select className="form-select my-2" defaultValue={0} ref={prodi}>
+            <option value={0} disabled hidden>
+              Program Studi
+            </option>
+            <option value={1}>Teknik Informatika</option>
+            <option value={2}>Teknik Kimia</option>
+            <option value={3}>Teknik Mesin</option>
           </select>
           <button className="btn btn-lg btn-primary btn-block">LOGIN</button>
         </form>
