@@ -1,32 +1,44 @@
-import { useState, useLayoutEffect, useEffect, useContext } from "react";
-import ProgressBar from "./ProgressBar";
+import { useState, useEffect, useContext, createContext } from "react";
 import { basicInfo } from "../App";
 
-export default function Game() {
-  const [hunger, setHunger] = useState(50);
-  const [fun, setFun] = useState(50);
-  const [energy, setEnergy] = useState(50);
-  const [happiness, setHappiness] = useState(50);
-  const [time, setTime] = useState(496800);
-  const [timeKey, setTimeKey] = useState(1000);
+import Phone from "./Phone";
+import Main from "./Main";
 
+import listMakanan from "./data/listMakanan";
+
+export const gameContext = createContext(null);
+
+export default function Game() {
   const { name, prodi, gender } = useContext(basicInfo);
 
-  const day = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  const [stats, setStats] = useState({
+    hunger: 50,
+    fun: 50,
+    energy: 50,
+    happiness: 50,
+  });
+  const [time, setTime] = useState(0);
+  const [timeKey, setTimeKey] = useState(1000);
+  const [isOnPhone, setIsOnPhone] = useState(false);
+  const [inventory, setInventory] = useState(listMakanan);
+
+  const timeOfTheDay = ["Morning", "Morning", "Afternoon", "Evening"];
 
   useEffect(() => {
-    if (hunger > 0) setHunger(hunger - 1);
-    if (happiness > 0) setHappiness(happiness - 1);
-    if (energy > 0) setEnergy(energy - 1);
-    if (fun > 0) setFun(fun - 1);
+    let hunger = stats.hunger;
+    let happiness = stats.happiness;
+    let fun = stats.fun;
+    let energy = stats.energy;
+    if (hunger > 0) hunger -= 1;
+    if (happiness > 0) happiness -= 1;
+    if (fun > 0) fun -= 1;
+    if (energy > 0) energy -= 1;
+    setStats({
+      hunger,
+      happiness,
+      fun,
+      energy,
+    });
   }, [time]);
 
   useEffect(() => {
@@ -40,35 +52,34 @@ export default function Game() {
     <div className="timeOfTheDay">
       <div className="weather">
         <div className="location">
-          <h1>Nama:{name}</h1>
-          <p>Prodi:{prodi}</p>
-          <p>Gender:{gender}</p>
-          <p>DAY : {day[Math.floor((time / 86400) % 7)]}</p>
-          <p>
-            TIME :
-            {Math.floor((time / 3600) % 24).toLocaleString(undefined, {
-              minimumIntegerDigits: 2,
-            })}
-            :
-            {Math.floor((time / 60) % 60).toLocaleString(undefined, {
-              minimumIntegerDigits: 2,
-            })}
-            :
-            {(time % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 })}
-          </p>
-          <ProgressBar
-            hunger={hunger}
-            fun={fun}
-            energy={energy}
-            happiness={happiness}
-          />
-          <p>Hunger {hunger}</p>
-          <p>Fun {fun}</p>
-          <p>Energy {energy}</p>
-          <p>Happiness {happiness}</p>
-          <button onClick={() => setHunger(hunger + 10)}>Makan</button>
+          <gameContext.Provider
+            value={{
+              stats,
+              setStats,
+              time,
+              setTime,
+              timeKey,
+              setTimeKey,
+              isOnPhone,
+              setIsOnPhone,
+              inventory,
+              setInventory,
+              timeOfTheDay,
+            }}
+          >
+            {isOnPhone && <Phone />}
+            <Main />
+          </gameContext.Provider>
+          <button
+            onClick={(prevState) =>
+              setStats({ ...stats, hunger: stats.hunger + 10 })
+            }
+          >
+            Makan
+          </button>
           <button onClick={() => setTimeKey(timeKey / 10)}>Time--</button>
           <button onClick={() => setTimeKey(timeKey * 10)}>Time++</button>
+          <button onClick={() => setIsOnPhone(!isOnPhone)}>Phone</button>
         </div>
       </div>
     </div>

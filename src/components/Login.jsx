@@ -17,7 +17,11 @@ export default function Login() {
           onClick={() => setGender(+!gender)}
           className="col-2 align-self-center"
         />
-        <img src={test[gender]} className="col-8" />
+        <img
+          src={test[gender]}
+          className="col-8"
+          style={{ maxHeight: "720px" }}
+        />
         <img
           src="https://img.icons8.com/external-those-icons-fill-those-icons/96/000000/external-left-arrows-those-icons-fill-those-icons-3.png"
           onClick={() => setGender(+!gender)}
@@ -30,10 +34,7 @@ export default function Login() {
           className="form-login"
           onSubmit={(e) => {
             e.preventDefault();
-            if (
-              name.current.value != "" &&
-              prodi.current.value != "Program Studi"
-            ) {
+            if (name.current.value != "" && prodi.current.value != "") {
               setName(name.current.value);
               setProdi(prodi.current.value);
               setIsLoggedIn(true);
@@ -47,14 +48,16 @@ export default function Login() {
             ref={name}
           />
           <select className="form-select my-2" defaultValue={0} ref={prodi}>
-            <option value={0} disabled hidden>
+            <option value="" disabled hidden>
               Program Studi
             </option>
-            <option value={1}>Teknik Informatika</option>
-            <option value={2}>Teknik Kimia</option>
-            <option value={3}>Teknik Mesin</option>
+            <option value="Teknik Informatika">Teknik Informatika</option>
+            <option value="Teknik Kimia">Teknik Kimia</option>
+            <option value="Teknik Mesin">Teknik Mesin</option>
           </select>
-          <button className="btn btn-lg btn-primary btn-block">LOGIN</button>
+          <button type="submit" className="btn btn-lg btn-primary btn-block">
+            LOGIN
+          </button>
         </form>
       </div>
     </div>

@@ -1,4 +1,9 @@
-export default function ProgressBar({ hunger, fun, energy, happiness }) {
+import { useContext } from "react";
+import { gameContext } from "./Game";
+
+export default function ProgressBar() {
+  const { stats, time } = useContext(gameContext);
+
   return (
     <div className="stats">
       <p>Hunger</p>
@@ -6,7 +11,7 @@ export default function ProgressBar({ hunger, fun, energy, happiness }) {
         <div
           className="progress-bar"
           role="progressbar"
-          style={{ width: hunger + "%" }}
+          style={{ width: stats.hunger + "%" }}
         ></div>
       </div>
       <p>Fun</p>
@@ -14,7 +19,7 @@ export default function ProgressBar({ hunger, fun, energy, happiness }) {
         <div
           className="progress-bar"
           role="progressbar"
-          style={{ width: fun + "%" }}
+          style={{ width: stats.fun + "%" }}
         ></div>
       </div>
       <p>Energy</p>
@@ -22,7 +27,7 @@ export default function ProgressBar({ hunger, fun, energy, happiness }) {
         <div
           className="progress-bar"
           role="progressbar"
-          style={{ width: energy + "%" }}
+          style={{ width: stats.energy + "%" }}
         ></div>
       </div>
       <p>Happiness</p>
@@ -30,7 +35,7 @@ export default function ProgressBar({ hunger, fun, energy, happiness }) {
         <div
           className="progress-bar"
           role="progressbar"
-          style={{ width: happiness + "%" }}
+          style={{ width: stats.happiness + "%" }}
         ></div>
       </div>
     </div>
