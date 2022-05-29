@@ -47,7 +47,7 @@ export default function Login() {
             placeholder="Nama"
             ref={name}
           />
-          <select className="form-select my-2" defaultValue={0} ref={prodi}>
+          <select className="form-select my-2" defaultValue="" ref={prodi}>
             <option value="" disabled hidden>
               Program Studi
             </option>

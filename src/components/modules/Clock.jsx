@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { gameContext } from "./Game";
-import { basicInfo } from "../App";
+import { gameContext } from "../Game";
+import { basicInfo } from "../../App";
 
 export default function Clock({ option }) {
   const { time } = useContext(gameContext);
@@ -21,7 +21,7 @@ export default function Clock({ option }) {
     return (
       <div className="clock">
         <p id="time">
-          {day[Math.floor((time / 240) % 7)]} -
+          {day[Math.floor((time / 1440) % 7)]} -{" "}
           {Math.floor((time / 60) % 24).toLocaleString(undefined, {
             minimumIntegerDigits: 2,
           })}
@@ -40,7 +40,7 @@ export default function Clock({ option }) {
     return (
       <div className="clock">
         <p id="time">
-          {day[Math.floor((time / 240) % 7)]} -{" "}
+          {day[Math.floor((time / 1440) % 7)]} -{" "}
           {Math.floor((time / 60) % 24).toLocaleString(undefined, {
             minimumIntegerDigits: 2,
           })}

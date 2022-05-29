@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { gameContext } from "./Game";
+import { gameContext } from "../Game";
 
 export default function ProgressBar() {
-  const { stats, time } = useContext(gameContext);
+  const { stats } = useContext(gameContext);
 
   return (
     <div className="stats">
