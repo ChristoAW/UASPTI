@@ -6,7 +6,7 @@ export default function ProgressBar() {
 
   return (
     <div className="stats">
-      <p>Hunger</p>
+      <p>Hunger</p>{" "}
       <div className="progress">
         <div
           className="progress-bar"

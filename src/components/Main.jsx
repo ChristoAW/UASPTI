@@ -1,13 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import Clock from "./modules/Clock";
 import ProgressBar from "./modules/ProgressBar";
+import Menu from "./modules/Menu";
 
 import { gameContext } from "./Game";
 import listMenu from "./data/listMenu";
 
 export default function Main() {
   const { location, setLocation } = useContext(gameContext);
+  const [menu, setMenu] = useState(null);
 
   return (
     <div id="atHome">
@@ -31,9 +33,12 @@ export default function Main() {
         {listMenu
           .find((list) => list.location === location)
           .renderMenus.map((menu, index) => (
-            <button key={index}>{menu}</button>
+            <button key={index} onClick={() => setMenu(menu)}>
+              {menu}
+            </button>
           ))}
       </div>
+      <Menu menu={menu} />
     </div>
   );
 }

@@ -7,6 +7,8 @@ import GameOver from "./GameOver";
 
 import listMakanan from "./data/listMakanan";
 
+import dayBG from "../assets/langit2.png";
+
 export const gameContext = createContext(null);
 
 export default function Game() {
@@ -24,7 +26,6 @@ export default function Game() {
   const [weather, setWeather] = useState(null);
   const [news, setNews] = useState(null);
   const [location, setLocation] = useState("Home");
-  const [finalTime, setfinalTime] = useState(-1);
 
   const newsURL =
     "https://newsapi.org/v2/everything?qInTitle='indonesia'&apiKey=c149d7a9909944daa2fa28ec6b6e75e8";
@@ -51,10 +52,6 @@ export default function Game() {
       setIsGameOver(true);
       setTimeKey(10000000);
     }
-    if (time == finalTime) {
-      setTimeKey(500);
-      setfinalTime(-1);
-    }
   }, [time]);
 
   useEffect(() => {
@@ -70,7 +67,10 @@ export default function Game() {
   }, []);
 
   return (
-    <div className="timeOfTheDay">
+    <div
+      className="timeOfTheDay"
+      style={{ backgroundPositionX: "-" + time * 10 + "px" }}
+    >
       <div className="weather">
         <div className="location">
           <gameContext.Provider
@@ -94,20 +94,16 @@ export default function Game() {
           </gameContext.Provider>
           <hr />
           <h3>DEBUG</h3>
+          <p>
+            Hunger: {stats.hunger} Happiness: {stats.happiness} Fun: {stats.fun}{" "}
+            Energy: {stats.energy}
+          </p>
           <button onClick={() => setTimeKey(timeKey / 10)}>Time--</button>
           <button onClick={() => setTimeKey(timeKey * 10)}>Time++</button>
           <button onClick={() => setTimeKey(10000000)}>Stop</button>
           <button onClick={() => setIsOnPhone(!isOnPhone)}>Phone</button>
           <button onClick={() => console.log(news)}>News</button>
           <button onClick={() => console.log(weather)}>Weather</button>
-          <button
-            onClick={() => {
-              setfinalTime(time + 480);
-              setTimeKey(10);
-            }}
-          >
-            Timelapse +8
-          </button>
         </div>
       </div>
     </div>

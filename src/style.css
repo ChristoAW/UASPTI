@@ -1,0 +1,10 @@
+body {
+  color: red;
+}
+
+.timeOfTheDay {
+  background-image: url(./assets/langit2.png);
+  border-radius: 10px;
+  background-repeat: repeat-x;
+  background-size: 14400px;
+}
