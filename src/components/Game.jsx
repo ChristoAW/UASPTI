@@ -6,6 +6,7 @@ import Main from "./Main";
 import GameOver from "./GameOver";
 
 import listMakanan from "./data/listMakanan";
+import listBelajar from "./data/listBelajar";
 
 import dayBG from "../assets/langit2.png";
 
@@ -13,19 +14,27 @@ export const gameContext = createContext(null);
 
 export default function Game() {
   const [stats, setStats] = useState({
+    money: 10000,
     hunger: 50,
     fun: 50,
     energy: 50,
-    happiness: 50,
+    intel: 50,
   });
   const [time, setTime] = useState(0);
   const [timeKey, setTimeKey] = useState(500);
+  const [expectedTime, setExpectedTime] = useState(-1);
   const [isOnPhone, setIsOnPhone] = useState(false);
   const [inventory, setInventory] = useState(listMakanan);
   const [isGameOver, setIsGameOver] = useState(false);
   const [weather, setWeather] = useState(null);
   const [news, setNews] = useState(null);
   const [location, setLocation] = useState("Home");
+  const [statsAdder, setStatsAdder] = useState({
+    hunger: 0,
+    fun: 0,
+    energy: 0,
+    intel: 0,
+  });
 
   const newsURL =
     "https://newsapi.org/v2/everything?qInTitle='indonesia'&apiKey=c149d7a9909944daa2fa28ec6b6e75e8";
@@ -34,23 +43,37 @@ export default function Game() {
   const timeOfTheDay = ["Morning", "Morning", "Afternoon", "Evening"];
 
   useEffect(() => {
-    let hunger = stats.hunger;
-    let happiness = stats.happiness;
-    let fun = stats.fun;
-    let energy = stats.energy;
+    let hunger = stats.hunger + statsAdder.hunger;
+    let intel = stats.intel + statsAdder.intel;
+    let fun = stats.fun + statsAdder.fun;
+    let energy = stats.energy + statsAdder.energy;
+    if (hunger > 100) hunger = 100;
+    if (intel > 100) intel = 100;
+    if (fun > 100) fun = 100;
+    if (energy > 100) energy = 100;
     if (hunger > 0) hunger -= 1;
-    if (happiness > 0) happiness -= 1;
+    if (intel > 0) intel -= 1;
     if (fun > 0) fun -= 1;
     if (energy > 0) energy -= 1;
     setStats({
       hunger,
-      happiness,
+      intel,
       fun,
       energy,
     });
     if (time >= 10080) {
       setIsGameOver(true);
       setTimeKey(10000000);
+    }
+    if (time === expectedTime) {
+      setStatsAdder({
+        hunger: 0,
+        fun: 0,
+        energy: 0,
+        intel: 0,
+      });
+      setExpectedTime(-1);
+      setTimeKey(500);
     }
   }, [time]);
 
@@ -88,6 +111,11 @@ export default function Game() {
               timeOfTheDay,
               location,
               setLocation,
+              statsAdder,
+              setStatsAdder,
+              expectedTime,
+              setExpectedTime,
+              news,
             }}
           >
             {isGameOver ? <GameOver /> : isOnPhone ? <Phone /> : <Main />}
@@ -95,8 +123,8 @@ export default function Game() {
           <hr />
           <h3>DEBUG</h3>
           <p>
-            Hunger: {stats.hunger} Happiness: {stats.happiness} Fun: {stats.fun}{" "}
-            Energy: {stats.energy}
+            Hunger: {stats.hunger} intel: {stats.intel} Fun: {stats.fun} Energy:{" "}
+            {stats.energy}
           </p>
           <button onClick={() => setTimeKey(timeKey / 10)}>Time--</button>
           <button onClick={() => setTimeKey(timeKey * 10)}>Time++</button>

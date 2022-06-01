@@ -8,7 +8,7 @@ import { gameContext } from "./Game";
 import listMenu from "./data/listMenu";
 
 export default function Main() {
-  const { location, setLocation } = useContext(gameContext);
+  const { location, setLocation, setIsOnPhone } = useContext(gameContext);
   const [menu, setMenu] = useState(null);
 
   return (
@@ -39,6 +39,7 @@ export default function Main() {
           ))}
       </div>
       <Menu menu={menu} />
+      <button onClick={() => setIsOnPhone(true)}>Phone</button>
     </div>
   );
 }

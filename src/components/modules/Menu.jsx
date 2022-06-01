@@ -1,56 +1,62 @@
 import { useState, useContext, useEffect, useRef } from "react";
 
 import { gameContext } from "../Game";
+import { basicInfo } from "../../App";
+import listBelajar from "../data/listBelajar";
+import listFun from "../data/listFun";
 
-export default function menu(menu) {
-  const { stats, setStats, inventory, setInventory, time, setTimeKey } =
-    useContext(gameContext);
+export default function menu({ menu }) {
+  const {
+    stats,
+    setStats,
+    inventory,
+    setInventory,
+    time,
+    setTimeKey,
+    statsAdder,
+    setStatsAdder,
+    expectedTime,
+    setExpectedTime,
+  } = useContext(gameContext);
+
+  const { prodi } = useContext(basicInfo);
   const lamaTidur = useRef(null);
+  const [nilaiBelajar, setNilaiBelajar] = useState(
+    listBelajar
+      .find((item) => item.prodi === prodi)
+      .mataKuliah.map((item) => item)
+  );
 
-  const [statsAdder, setStatsAdder] = useState({
-    hunger: 0,
-    fun: 0,
-    energy: 0,
-    happiness: 0,
-  });
-  const [expectedTime, setExpectedTime] = useState(-1);
-
-  useEffect(() => {
-    if (expectedTime !== -1) {
-      var hungertest = stats.hunger + statsAdder.hunger;
-      var happinesstest = stats.happiness + statsAdder.happiness;
-      var funtest = stats.fun + statsAdder.fun;
-      var energytest = stats.energy + statsAdder.energy;
-      if (hungertest > 100) hungertest = 100;
-      if (happinesstest > 100) happinesstest = 100;
-      if (funtest > 100) funtest = 100;
-      if (energytest > 100) energytest = 100;
-      setStats({
-        hunger: hungertest,
-        happiness: happinesstest,
-        fun: funtest,
-        energy: energytest,
-      });
-      console.log(stats);
-    } else if (expectedTime === time) {
-      setStatsAdder({
-        hunger: 0,
-        fun: 0,
-        energy: 0,
-        happiness: 0,
-      });
-      setExpectedTime(-1);
-      setTimeKey(500);
-    }
-  }, [time]);
-
-  if (menu.menu === "belajar") {
+  if (menu === "belajar") {
+    console.log(nilaiBelajar);
     return (
       <div>
-        <h1>ini menu Belajar</h1>
+        <h1>Ini Menu Belajar</h1>
+        {listBelajar
+          .find((list) => list.prodi === prodi)
+          .mataKuliah.map((matKul, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setNilaiBelajar(
+                  nilaiBelajar.map((item, i) => {
+                    console.log(index + " " + i);
+                    if (i === index) {
+                      item.nilai += 3;
+                    }
+                    return item;
+                  })
+                );
+                setExpectedTime(time + Number(60));
+                setTimeKey(10);
+              }}
+            >
+              {matKul.nama}
+            </button>
+          ))}
       </div>
     );
-  } else if (menu.menu === "makan") {
+  } else if (menu === "makan") {
     return (
       <div>
         <h1>Ini Makan</h1>
@@ -64,6 +70,7 @@ export default function menu(menu) {
                     setStats({ ...stats, hunger: 100 });
                   } else {
                     setStats({ ...stats, hunger: stats.hunger + item.hunger });
+                    setInventory({ ...inventory, stock: item.stock-- });
                   }
                 }}
               >
@@ -74,7 +81,7 @@ export default function menu(menu) {
         })}
       </div>
     );
-  } else if (menu.menu === "tidur") {
+  } else if (menu === "tidur") {
     return (
       <div>
         <h1>Ini tidur</h1>
@@ -88,7 +95,7 @@ export default function menu(menu) {
                   energy: 10,
                 });
                 setExpectedTime(time + Number(lamaTidur.current.value * 60));
-                setTimeKey(1000);
+                setTimeKey(10);
               } else {
                 alert("Kamu sedang melakukan hal lain");
               }
@@ -102,17 +109,53 @@ export default function menu(menu) {
         </form>
       </div>
     );
-  } else if (menu.menu === "fun") {
+  } else if (menu === "fun") {
     return (
       <div>
-        <h1>Ini fun</h1>
+        <h1>Ini Fun</h1>
+        {listFun.map((item, idx) => {
+          if (stats.fun < 100) {
+            return (
+              <button
+                key={idx}
+                onClick={() => {
+                  if (stats.fun + item.fun >= 100) {
+                    setStats({ ...stats, fun: 100 });
+                    setExpectedTime(time + Number(60));
+                    setTimeKey(10);
+                  } else {
+                    setStats({ ...stats, fun: stats.fun + item.fun });
+                  }
+                }}
+              >
+                {item.nama}
+              </button>
+            );
+          }
+        })}
+      </div>
+    );
+  } else if (menu === "belanja") {
+    return (
+      <div>
+        <h1>Ini Belanja</h1>
+        {inventory.map((item, idx) => {
+          if (stats.money >= item.harga) {
+            return (
+              <button
+                key={idx}
+                onClick={() => {
+                  setStats({ ...stats, money: money - item.harga });
+                }}
+              >
+                {item.nama}
+              </button>
+            );
+          }
+        })}
       </div>
     );
   } else {
-    return (
-      <div>
-        <h1>Ini menu default</h1>
-      </div>
-    );
+    return;
   }
 }

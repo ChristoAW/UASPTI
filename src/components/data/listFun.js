@@ -18,7 +18,7 @@ const listFun = [
     energy: 10,
   },
   {
-    nama: "fun1",
+    nama: "fun4",
     fun: 10,
     hunger: 10,
     energy: 10,
