@@ -8,8 +8,6 @@ import GameOver from "./GameOver";
 import listMakanan from "./data/listMakanan";
 import listBelajar from "./data/listBelajar";
 
-import dayBG from "../assets/langit2.png";
-
 export const gameContext = createContext(null);
 
 export default function Game() {
@@ -18,7 +16,7 @@ export default function Game() {
     hunger: 50,
     fun: 50,
     energy: 50,
-    intel: 50,
+    intel: 0,
   });
   const [time, setTime] = useState(0);
   const [timeKey, setTimeKey] = useState(500);
@@ -44,23 +42,25 @@ export default function Game() {
 
   useEffect(() => {
     let hunger = stats.hunger + statsAdder.hunger;
-    let intel = stats.intel + statsAdder.intel;
     let fun = stats.fun + statsAdder.fun;
     let energy = stats.energy + statsAdder.energy;
+    let intel = statsAdder.intel;
     if (hunger > 100) hunger = 100;
-    if (intel > 100) intel = 100;
     if (fun > 100) fun = 100;
     if (energy > 100) energy = 100;
     if (hunger > 0) hunger -= 1;
-    if (intel > 0) intel -= 1;
     if (fun > 0) fun -= 1;
     if (energy > 0) energy -= 1;
-    setStats({
-      hunger,
-      intel,
-      fun,
-      energy,
-    });
+    if (statsAdder.intel != 0) {
+      setStats({
+        hunger,
+        fun,
+        energy,
+        intel,
+      });
+    } else {
+      setStats({ ...stats, hunger, fun, energy });
+    }
     if (time >= 10080) {
       setIsGameOver(true);
       setTimeKey(10000000);
@@ -87,7 +87,8 @@ export default function Game() {
   useEffect(() => {
     axios.get(newsURL).then((res) => setNews(res.data.articles));
     axios.get(weatherURL).then((res) => setWeather(res.data.daily));
-  }, []);
+    setStats({ ...stats, money: stats.money + 5000 });
+  }, [time > 0 && time % 1440 === 0]);
 
   return (
     <div
@@ -95,6 +96,10 @@ export default function Game() {
       style={{ backgroundPositionX: "-" + time * 10 + "px" }}
     >
       <div className="weather">
+        <p>
+          Weather{" "}
+          {weather && weather[Math.floor(time / 1440) % 7].weather[0].main}
+        </p>
         <div className="location">
           <gameContext.Provider
             value={{
@@ -122,6 +127,7 @@ export default function Game() {
           </gameContext.Provider>
           <hr />
           <h3>DEBUG</h3>
+          <h1>MONEY: Rp.{stats.money}</h1>
           <p>
             Hunger: {stats.hunger} intel: {stats.intel} Fun: {stats.fun} Energy:{" "}
             {stats.energy}

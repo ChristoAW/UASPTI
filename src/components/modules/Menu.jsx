@@ -21,14 +21,37 @@ export default function menu({ menu }) {
 
   const { prodi } = useContext(basicInfo);
   const lamaTidur = useRef(null);
+  const [indexMatKul, setIndexMatkul] = useState(null);
   const [nilaiBelajar, setNilaiBelajar] = useState(
     listBelajar
       .find((item) => item.prodi === prodi)
       .mataKuliah.map((item) => item)
   );
 
+  useEffect(() => {
+    if (expectedTime != -1) {
+      setNilaiBelajar(
+        nilaiBelajar.map((item, i) => {
+          if (i === indexMatKul) {
+            item.nilai += 3;
+            if (item.nilai >= 100) item.nilai = 100;
+          }
+          return item;
+        })
+      );
+      setStatsAdder({
+        ...statsAdder,
+        intel: nilaiBelajar
+          .map((item) => 0.25 * item.nilai)
+          .reduce((a, b) => a + b),
+      });
+      if (expectedTime === time) {
+        setIndexMatkul(null);
+      }
+    }
+  }, [time]);
+
   if (menu === "belajar") {
-    console.log(nilaiBelajar);
     return (
       <div>
         <h1>Ini Menu Belajar</h1>
@@ -38,15 +61,7 @@ export default function menu({ menu }) {
             <button
               key={index}
               onClick={() => {
-                setNilaiBelajar(
-                  nilaiBelajar.map((item, i) => {
-                    console.log(index + " " + i);
-                    if (i === index) {
-                      item.nilai += 3;
-                    }
-                    return item;
-                  })
-                );
+                setIndexMatkul(index);
                 setExpectedTime(time + Number(60));
                 setTimeKey(10);
               }}
@@ -61,24 +76,50 @@ export default function menu({ menu }) {
       <div>
         <h1>Ini Makan</h1>
         {inventory.map((item, idx) => {
-          if (item.stock > 0) {
+          if (item.stock !== 0) {
             return (
-              <button
+              <div
                 key={idx}
                 onClick={() => {
-                  if (stats.hunger + item.hunger >= 100) {
-                    setStats({ ...stats, hunger: 100 });
+                  if (expectedTime === -1) {
+                    setInventory(
+                      inventory.map((item, id) => {
+                        if (id === idx) {
+                          item.stock -= 1;
+                        }
+                        return item;
+                      })
+                    );
+                    setExpectedTime(time + 15);
+                    setTimeKey(10);
+                    if (stats.hunger + item.hunger >= 100)
+                      setStats({ ...stats, hunger: 100 });
+                    else
+                      setStats({
+                        ...stats,
+                        hunger: stats.hunger + item.hunger,
+                      });
                   } else {
-                    setStats({ ...stats, hunger: stats.hunger + item.hunger });
-                    setInventory({ ...inventory, stock: item.stock-- });
+                    alert("Kamu sedang melakukan hal lain");
                   }
                 }}
               >
-                {item.nama}
-              </button>
+                <img src={item.gambar} />
+                <p>{item.nama}</p>
+                <p>{item.stock}</p>
+              </div>
+            );
+          } else {
+            return (
+              <div key={idx}>
+                <img src={item.gambar} />
+                <p>{item.nama}</p>
+                <p>{item.stock}</p>
+              </div>
             );
           }
         })}
+        ;
       </div>
     );
   } else if (menu === "tidur") {

@@ -30,14 +30,15 @@ export default function ProgressBar() {
           style={{ width: stats.energy + "%" }}
         ></div>
       </div>
-      <p>Happiness</p>
+      <p>Intelligence</p>
       <div className="progress">
         <div
           className="progress-bar"
           role="progressbar"
-          style={{ width: stats.happiness + "%" }}
+          style={{ width: stats.intel + "%" }}
         ></div>
       </div>
+      <p>Money: Rp.{stats.money}</p>
     </div>
   );
 }

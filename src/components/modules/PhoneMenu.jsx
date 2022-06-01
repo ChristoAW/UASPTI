@@ -6,7 +6,8 @@ import { phoneContext } from "../Phone";
 import listMakanan from "../data/listMakanan";
 
 export default function PhoneMenu() {
-  const { news } = useContext(gameContext);
+  const { news, inventory, setInventory, stats, setStats } =
+    useContext(gameContext);
   const { phoneMenu, setPhoneMenu } = useContext(phoneContext);
   if (phoneMenu === "home") {
     return (
@@ -69,9 +70,24 @@ export default function PhoneMenu() {
       <div>
         <h1>GOFOOD</h1>
         {listMakanan.map((makanan, index) => (
-          <div key={index} style={{ border: "2px solid white" }}>
+          <div
+            key={index}
+            style={{ border: "2px solid white" }}
+            onClick={() => {
+              if (stats.money >= makanan.harga) {
+                setInventory(
+                  inventory.map((item, id) => {
+                    if (id === index) item.stock++;
+                    return item;
+                  })
+                );
+                setStats({ ...stats, money: stats.money - makanan.harga });
+              }
+            }}
+          >
             <p>{makanan.nama}</p>
             <p>{makanan.harga}</p>
+            <button onClick={() => console.log(inventory)}>test</button>
           </div>
         ))}
         <button onClick={() => setPhoneMenu("home")}>Back</button>
