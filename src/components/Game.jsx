@@ -61,7 +61,7 @@ export default function Game() {
     } else {
       setStats({ ...stats, hunger, fun, energy });
     }
-    if (time >= 10080) {
+    if (time >= 10080 || hunger <= 0) {
       setIsGameOver(true);
       setTimeKey(10000000);
     }
@@ -74,10 +74,6 @@ export default function Game() {
       });
       setExpectedTime(-1);
       setTimeKey(500);
-    }
-    //gameover
-    if (hunger <= 0) {
-      setIsGameOver(true);
     }
   }, [time]);
 
