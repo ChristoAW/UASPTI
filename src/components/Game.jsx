@@ -75,6 +75,10 @@ export default function Game() {
       setExpectedTime(-1);
       setTimeKey(500);
     }
+    //gameover
+    if (hunger <= 0) {
+      setIsGameOver(true);
+    }
   }, [time]);
 
   useEffect(() => {
