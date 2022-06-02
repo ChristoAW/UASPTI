@@ -1,14 +1,50 @@
+import { useState, useContext, useEffect, useRef } from "react";
+
+import { gameContext } from "./Game";
+
 export default function GameOver() {
-  return [
-    <iframe
-      width="853"
-      height="480"
-      src="https://www.youtube.com/embed/-ZGlaAxB7nI"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>,
-    <h1>Ini Game Over</h1>,
-  ];
+  const { stats, time } = useContext(gameContext);
+  if (time >= 10080 && stats.hunger <= 25) {
+    return [
+      <h1>Ini Game Over</h1>,
+      <iframe
+        width="853"
+        height="480"
+        src="https://www.youtube.com/embed/MS8OawQegYE?&autoplay=1"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>,
+      <h1>Kamu kurang makan</h1>,
+    ];
+  } else if (time >= 10080 && stats.energy <= 25) {
+    return [
+      <h1>Ini Game Over</h1>,
+      <iframe
+        width="853"
+        height="480"
+        src="https://www.youtube.com/embed/MS8OawQegYE?&autoplay=1"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>,
+      <h1>Kamu kurang tidur</h1>,
+    ];
+  } else if (stats.hunger <= 0) {
+    return [
+      <h1>Ini Game Over</h1>,
+      <iframe
+        width="853"
+        height="480"
+        src="https://www.youtube.com/embed/-ZGlaAxB7nI?&autoplay=1"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>,
+      <h1>Kamu Mati</h1>,
+    ];
+  }
 }
