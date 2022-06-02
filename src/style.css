@@ -1,5 +1,5 @@
 body {
-  color: red;
+  color: tomato;
 }
 
 .timeOfTheDay {
@@ -7,4 +7,9 @@ body {
   border-radius: 10px;
   background-repeat: repeat-x;
   background-size: 14400px;
+}
+
+.login {
+    background-image: url(https://thumbs.dreamstime.com/b/alien-planet-landscape-space-game-background-alien-planet-landscape-space-game-background-vector-cartoon-fantasy-199231059.jpg);
+    background-size: cover;
 }
