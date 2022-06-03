@@ -1,13 +1,13 @@
 const listMenu = [
   {
     location: "Home",
-    renderMenus: ["makan", "tidur", "fun", "belajar"],
+    renderMenus: ["Makan", "Tidur", "Fun", "Belajar"],
   },
   {
     location: "Supermarket",
-    renderMenus: ["makan", "belanja"],
+    renderMenus: ["Makan", "Belanja"],
   },
-  { location: "Kampus", renderMenus: ["makan", "belajar"] },
+  { location: "Kampus", renderMenus: ["Makan", "Belajar"] },
 ];
 
 export default listMenu;

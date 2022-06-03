@@ -6,52 +6,56 @@ export default function ProgressBar() {
 
   return (
     <div className="stats">
+      <p>Money: Rp.{stats.money}</p>
+      <div className="row"></div>
       <div className="row">
         <div className="col-6">
-          <p>Hunger</p>{" "}
           <div className="progress">
             <div
               className="progress-bar"
               role="progressbar"
               style={{ width: stats.hunger + "%" }}
-            ></div>
+            >
+              Hunger
+            </div>
           </div>
         </div>
         <div className="col-6">
-          <p>Fun</p>
           <div className="progress">
             <div
               className="progress-bar"
               role="progressbar"
               style={{ width: stats.fun + "%" }}
-            ></div>
+            >
+              Fun
+            </div>
           </div>
         </div>
       </div>
       <div className="row">
         <div className="col-6">
-        <p>Energy</p>
           <div className="progress">
             <div
               className="progress-bar"
               role="progressbar"
               style={{ width: stats.energy + "%" }}
-              ></div>
+            >
+              Energy
             </div>
+          </div>
         </div>
-
         <div className="col-6">
-        <p>Intelligence</p>
-            <div className="progress">
+          <div className="progress">
             <div
               className="progress-bar"
               role="progressbar"
               style={{ width: stats.intel + "%" }}
-            ></div>
+            >
+              Intelligence
+            </div>
           </div>
         </div>
       </div>
-      <p>Money: Rp.{stats.money}</p>
     </div>
   );
 }

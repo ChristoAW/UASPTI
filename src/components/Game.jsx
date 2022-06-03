@@ -5,8 +5,12 @@ import Phone from "./Phone";
 import Main from "./Main";
 import GameOver from "./GameOver";
 
+import hujan from "../assets/hujan.gif";
+import rumah from "../assets/rumah.png";
+import kampus from "../assets/kampus.png";
+import supermarket from "../assets/supermarket.png";
+
 import listMakanan from "./data/listMakanan";
-import listBelajar from "./data/listBelajar";
 
 export const gameContext = createContext(null);
 
@@ -48,9 +52,9 @@ export default function Game() {
     if (hunger > 100) hunger = 100;
     if (fun > 100) fun = 100;
     if (energy > 100) energy = 100;
-    if (hunger > 0) hunger -= 1;
-    if (fun > 0) fun -= 1;
-    if (energy > 0) energy -= 1;
+    if (hunger > 0) hunger -= 0.06125;
+    if (fun > 0) fun -= 0.06125;
+    if (energy > 0) energy -= 0.06125;
     if (statsAdder.intel != 0) {
       setStats({
         hunger,
@@ -87,20 +91,46 @@ export default function Game() {
   useEffect(() => {
     axios.get(newsURL).then((res) => setNews(res.data.articles));
     axios.get(weatherURL).then((res) => setWeather(res.data.daily));
-    setStats({ ...stats, money: stats.money + 5000 });
+    setStats({
+      ...stats,
+      money: stats.money + 5000 + Math.floor(Math.random() * 10000),
+    });
   }, [time > 0 && time % 1440 === 0]);
 
   return (
     <div
       className="timeOfTheDay"
-      style={{ backgroundPositionX: "-" + time * 10 + "px" }}
+      style={{
+        backgroundPositionX: "-" + time * 10 + "px",
+      }}
     >
-      <div className="weather">
-        <p>
-          Weather{" "}
-          {weather && weather[Math.floor(time / 1440) % 7].weather[0].main}
-        </p>
-        <div className="location">
+      <div
+        className="location"
+        style={{
+          backgroundImage:
+            location === "Home"
+              ? `url(${rumah})`
+              : location === "Kampus"
+              ? `url(${kampus})`
+              : `url(${supermarket})`,
+          backgroundSize: "cover",
+        }}
+      >
+        <div
+          className="weather"
+          style={{
+            backdropFilter:
+              weather &&
+              weather[Math.floor(time / 1440) % 7].weather[0].main &&
+              "grayscale(100%)",
+            backgroundImage:
+              weather &&
+              weather[Math.floor(time / 1440) % 7].weather[0].main === "Rain" &&
+              `url(${hujan})`,
+            backgroundSize: "contain",
+            padding: "30px",
+          }}
+        >
           <gameContext.Provider
             value={{
               stats,
@@ -126,18 +156,6 @@ export default function Game() {
             {isGameOver ? <GameOver /> : isOnPhone ? <Phone /> : <Main />}
           </gameContext.Provider>
           <hr />
-          <h3>DEBUG</h3>
-          <h1>MONEY: Rp.{stats.money}</h1>
-          <p>
-            Hunger: {stats.hunger} intel: {stats.intel} Fun: {stats.fun} Energy:{" "}
-            {stats.energy}
-          </p>
-          <button onClick={() => setTimeKey(timeKey / 10)}>Time--</button>
-          <button onClick={() => setTimeKey(timeKey * 10)}>Time++</button>
-          <button onClick={() => setTimeKey(10000000)}>Stop</button>
-          <button onClick={() => setIsOnPhone(!isOnPhone)}>Phone</button>
-          <button onClick={() => console.log(news)}>News</button>
-          <button onClick={() => console.log(weather)}>Weather</button>
         </div>
       </div>
     </div>

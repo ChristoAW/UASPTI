@@ -1,27 +1,22 @@
 import { useContext, useRef } from "react";
 import { basicInfo } from "../App";
-import male from "../assets/char/0_login.jpg";
-import female from "../assets/char/1_login.jpg";
+import listAvatar from "./data/listAvatar";
 
 export default function Login() {
   const { setName, setIsLoggedIn, gender, setGender, setProdi } =
     useContext(basicInfo);
   const name = useRef();
   const prodi = useRef();
-  const test = [male, female];
+
   return (
-    <div className="login">
+    <div className="login container-md">
       <div className="char row">
         <img
           src="https://img.icons8.com/external-those-icons-fill-those-icons/96/000000/external-left-arrows-those-icons-fill-those-icons-3.png"
           onClick={() => setGender(+!gender)}
           className="col-2 align-self-center"
         />
-        <img
-          src={test[gender]}
-          className="col-8"
-          style={{ maxHeight: "720px" }}
-        />
+        <img src={listAvatar[gender]} className="col-8" />
         <img
           src="https://img.icons8.com/external-those-icons-fill-those-icons/96/000000/external-left-arrows-those-icons-fill-those-icons-3.png"
           onClick={() => setGender(+!gender)}
