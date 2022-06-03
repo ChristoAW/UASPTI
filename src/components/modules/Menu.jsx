@@ -362,6 +362,17 @@ export default function menu({ menu }) {
         </Swiper>
       </div>
     );
+  } else if (menu === "About Us") {
+    return (
+      <div className="aboutUs">
+        <h1>About Us</h1>
+        <h4>Dibuat Oleh : Kelompok BOCAN</h4>
+        <h4>53752 - Andrew Natanael Tjandra</h4>
+        <h4>55420 - Christophorus Augusta Wangsa </h4>
+        <h4>55266 - Edison Sigmund </h4>
+        <h4>54004 - Marcellino Osmon </h4>
+      </div>
+    );
   } else {
     return;
   }
