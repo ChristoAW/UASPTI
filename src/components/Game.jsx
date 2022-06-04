@@ -39,7 +39,7 @@ export default function Game() {
   });
 
   const newsURL =
-    "https://newsapi.org/v2/everything?q=indonesia&apiKey=c149d7a9909944daa2fa28ec6b6e75e8";
+    "https://newsapi.org/v2/everything?q=indonesia&apiKey=ac812191cd374c458cfa501038e5b592";
   const weatherURL =
     "https://api.openweathermap.org/data/2.5/onecall?lat=-6.256135116177676&lon=106.61850408488958&appid=afd3918370eb1401ea7c94a5ed685d20";
   const timeOfTheDay = ["Morning", "Morning", "Afternoon", "Evening"];
@@ -96,7 +96,7 @@ export default function Game() {
       ...stats,
       money: stats.money + 5000 + Math.floor(Math.random() * 10000),
     });
-  }, [time > 0 && time % 1440 === 0]);
+  }, [time % 1440 === 0]);
 
   return (
     <div
