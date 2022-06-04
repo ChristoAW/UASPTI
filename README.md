@@ -1,9 +1,9 @@
 # UASPTI
 Data anggota kelompok:
-1. Christoporus Augusta Wangsa
-2. Edison Sigmund
-3. Andrew Nathanael T.
-4. Marcellino Osmon
+53752 - Andrew Natanael Tjandra
+55420 - Christophorus Augusta Wangsa
+55266 - Edison Sigmund
+54004 - Marcellino Osmon
 
 Aturan gameplay:
 
@@ -21,6 +21,6 @@ Progress bar yang ada dapat diisi dengan menu tombol-tombol yang ada disebelah k
 Menu tidur akan menampilkan tempat untuk player mengisi jumlah waktu tidur, yang kemudian jika diisi berapa jam tidur, akan menambahkan progress bar energi tetapi akan mengurangi progress bar hunger dan fun. 
 Untuk menu fun, player dapat memilih aktivitas apa yang akan dilakukan akan tetapi perlu diperhatikan bahwa menu fun lebih mengutamakan stat untuk menambahkan fun namun mengurangi jumlah hunger serta energi dalam jumlah yang cukup besar sehingga sangat perlu diperhatikan agar tidak ada progress bar yang kosong.  
 Menu keempat adalah menu belajar yang dimana ketika diklik oleh player, akan menampilkan mata kuliah yang berkaitan dengan program studi yang telah dipilih sebelumnya di awal menu login. Memilih salah satu mata kuliah akan menambah progress bar intelligence. Untuk menu belajar, pengurangan untuk bar fun cukup tinggi sehingga perlu diperhatikan dengan baik.
-Untuk menu supermarket, player dapat memilih untuk melakukan 2 aktivitas yaitu makan atau belanja makanan untuk disimpan sebagai makanan nantinya. Dengan jumlah uang yang ada player dapat memilih berbagai jenis makanan yang ada dan membeli makanan sesuai dengan jumlah uang yang dimiliki.
+Untuk menu supermarket, player dapat memilih untuk melakukan 2 aktivitas yaitu makan atau belanja makanan untuk disimpan sebagai makanan nantinya. Dengan jumlah uang yang ada player dapat memilih berbagai jenis makanan yang ada dan membeli makanan sesuai dengan jumlah uang yang dimiliki selain itu jumlah uang akan berubah per hari secara random yang bisa digunakan untuk membeli makanan.
 Sedangkan untuk menu ke kampus, akan ada 2 aktivitas juga yaitu makan dan belajar dengan fungsi yang sama seperti di atas.
-Dan terakhir untuk menu handphone yang ada di sebelah kiri, player akan diarah kan ke menu youtube, gofood dan news. Yang dimana ketika menu ini bisa diklik dan menampilkan isinya seperti gofood akan menampilkan gambar makanan yang dapat dibeli, menu news akan menampilkan berita yang ada dari newsAPI dan menu youtube bisa langsung dicoba untuk diklik.
+Dan terakhir untuk menu handphone yang ada di sebelah kiri, player akan diarah kan ke menu youtube, gofood dan news. Yang dimana ketika menu ini bisa diklik dan menampilkan isinya seperti gofood akan menampilkan gambar makanan yang dapat dibeli, menu news akan menampilkan berita yang ada dari newsAPI yang akan berubah setiap satu hari di dalam game dan menu youtube bisa langsung dicoba untuk diklik.
