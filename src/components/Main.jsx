@@ -74,10 +74,10 @@ export default function Main() {
                   key={index}
                   onClick={() => {
                     if (
-                      (filteredList.location === "Kampus" &&
-                        Math.floor((time / 1440) % 7) === 0) ||
-                      (Math.floor((time / 60) % 24) < 8 &&
-                        Math.floor((time / 60) % 24) >= 18)
+                      filteredList.location === "Kampus" &&
+                      (Math.floor((time / 1440) % 7) === 0 ||
+                      Math.floor((time / 60) % 24) < 8 ||
+                      Math.floor((time / 60) % 24) >= 18)
                     ) {
                       alert("Kampus Belum Buka");
                     } else {

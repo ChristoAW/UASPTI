@@ -43,7 +43,7 @@ export default function menu({ menu }) {
   );
 
   useEffect(() => {
-    if (expectedTime != -1) {
+    if (expectedTime !== -1) {
       setNilaiBelajar(
         nilaiBelajar.map((item, i) => {
           if (i === indexMatKul) {
@@ -59,9 +59,9 @@ export default function menu({ menu }) {
           .map((item) => 0.25 * item.nilai)
           .reduce((a, b) => a + b),
       });
-      if (expectedTime === time) {
-        setIndexMatkul(null);
-      }
+    }
+    if (expectedTime === time) {
+      setIndexMatkul(null);
     }
   }, [time]);
 
