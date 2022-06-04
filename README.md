@@ -5,6 +5,10 @@ Data anggota kelompok:
 55266 - Edison Sigmund
 54004 - Marcellino Osmon
 
+Link youtube: https://www.youtube.com/watch?v=ejCFahUXWqM
+Link repo github: https://github.com/ChristoAW/UASPTI.git
+
+
 Aturan gameplay:
 
 Menu-menu yang ada:
