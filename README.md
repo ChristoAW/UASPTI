@@ -1,4 +1,4 @@
-# 7 Day Student Life Simulation — Phase 2 (React Refactor) ⚛️
+# 7 Days Student Life Simulation — Phase 2 (React Refactor) ⚛️
 
 This repository contains the **React-based refactor** of a Tamagotchi-style life simulation game originally implemented using JavaScript and jQuery.
 
